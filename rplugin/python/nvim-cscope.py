@@ -154,6 +154,10 @@ class CScope(object):
             self.nvim.vars['cscope_dir'] = '~/.cscope'
         self.cscope_dir = os.path.expanduser(self.nvim.vars['cscope_dir'])
 
+        # get default configuration name
+        if not 'cscope_config' in self.nvim.vars:
+            self.nvim.vars['cscope_config'] = 'cscope.cfg'
+
         # setup project configuration
         if len(args) == 1:
             if os.path.isfile(args[0]):
@@ -164,8 +168,8 @@ class CScope(object):
                         args[0]))
                 return
         else:
-            if os.path.isfile(os.path.join(os.getcwd(), 'cscope.cfg')):
-                self.project_conf = os.path.join(os.getcwd(), 'cscope.cfg')
+            if os.path.isfile(os.path.join(os.getcwd(), self.nvim.vars['cscope_config'])):
+                self.project_conf = os.path.join(os.getcwd(), self.nvim.vars['cscope_config'])
             else:
                 self.nvim.command(
                     'echo "Couldn\'t start CScope: \'cscope.py\' does not exist."')

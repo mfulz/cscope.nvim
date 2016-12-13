@@ -128,6 +128,40 @@ class CScope(object):
             'nmap <unique> <C-\>i :cs find i ^<C-R>=expand("<cfile>")<CR><CR>')
         self.nvim.command(
             'nmap <unique> <C-\>d :cs find d <C-R>=expand("<cword>")<CR><CR>')
+        self.nvim.command(
+            'nmap <unique> <C-Space>s :scs find s <C-R>=expand("<cword>")<CR><CR>')
+        self.nvim.command(
+            'nmap <unique> <C-Space>g :scs find g <C-R>=expand("<cword>")<CR><CR>')
+        self.nvim.command(
+            'nmap <unique> <C-Space>c :scs find c <C-R>=expand("<cword>")<CR><CR>')
+        self.nvim.command(
+            'nmap <unique> <C-Space>t :scs find t <C-R>=expand("<cword>")<CR><CR>')
+        self.nvim.command(
+            'nmap <unique> <C-Space>e :scs find e <C-R>=expand("<cword>")<CR><CR>')
+        self.nvim.command(
+            'nmap <unique> <C-Space>f :scs find f <C-R>=expand("<cfile>")<CR><CR>')
+        self.nvim.command(
+            'nmap <unique> <C-Space>i :scs find i ^<C-R>=expand("<cfile>")<CR><CR>')
+        self.nvim.command(
+            'nmap <unique> <C-Space>d :scs find d <C-R>=expand("<cword>")<CR><CR>')
+        self.nvim.command(
+            'nmap <unique> <C-Space><C-Space>s :vert scs find s <C-R>=expand("<cword>")<CR><CR>')
+        self.nvim.command(
+            'nmap <unique> <C-Space><C-Space>g :vert scs find g <C-R>=expand("<cword>")<CR><CR>')
+        self.nvim.command(
+            'nmap <unique> <C-Space><C-Space>c :vert scs find c <C-R>=expand("<cword>")<CR><CR>')
+        self.nvim.command(
+            'nmap <unique> <C-Space><C-Space>t :vert scs find t <C-R>=expand("<cword>")<CR><CR>')
+        self.nvim.command(
+            'nmap <unique> <C-Space><C-Space>e :vert scs find e <C-R>=expand("<cword>")<CR><CR>')
+        self.nvim.command(
+            'nmap <unique> <C-Space><C-Space>f :vert scs find f <C-R>=expand("<cfile>")<CR><CR>')
+        self.nvim.command(
+            'nmap <unique> <C-Space><C-Space>i :vert scs find i ^<C-R>=expand("<cfile>")<CR><CR>')
+        self.nvim.command(
+            'nmap <unique> <C-Space><C-Space>d :vert scs find d <C-R>=expand("<cword>")<CR><CR>')
+        self.nvim.command(
+            'imap <C-@> <C-Space>')
 
     @neovim.command('CScopeUpdate', range='', nargs='*', sync=False)
     def cscope_update_files_handler(self, args, range):

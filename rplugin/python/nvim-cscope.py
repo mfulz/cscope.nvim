@@ -1,8 +1,14 @@
 import neovim
 import os
-import ConfigParser
+import sys
 import subprocess
-from StringIO import StringIO
+if sys.version_info > (3, 0):
+    import configparser
+    ConfigParser = configparser
+    from io import StringIO
+else:
+    import ConfigParser
+    from StringIO import StringIO
 
 
 @neovim.plugin

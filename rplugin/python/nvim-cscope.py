@@ -38,7 +38,7 @@ class CScope(object):
                     self.project_conf,
                     str(e)))
 
-        if not os.path.exists(self.config['project_path']):
+        if not os.path.isdir(self.config['project_path']):
             return (
                 False, "Project path: '{0}' does not exist".format(
                     self.config['project_path']))

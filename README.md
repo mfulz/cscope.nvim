@@ -7,10 +7,10 @@ inside of subfolders, depending on the given project name.
 
 ## Installation
 
-**Note:** cscope.nvim requires Neovim with python enabled.
+**Note:** cscope.nvim requires Neovim with python3 enabled.
 
 1. Extract the files and put them in your Neovim directory
-   ('$XDG_CONFIG_HOME/nvim/rplugin/python/').
+   ('$XDG_CONFIG_HOME/nvim/rplugin/python3/').
 2. Inside nvim run ':UpdateRemotePlugins' and restart nvim
 
 For vim-plug

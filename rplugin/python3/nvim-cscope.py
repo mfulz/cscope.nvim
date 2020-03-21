@@ -2,13 +2,8 @@ import neovim
 import os
 import sys
 import subprocess
-if sys.version_info > (3, 0):
-    import configparser
-    ConfigParser = configparser
-    from io import StringIO
-else:
-    import ConfigParser
-    from StringIO import StringIO
+import configparser
+from io import StringIO
 
 
 @neovim.plugin
@@ -21,7 +16,7 @@ class CScope(object):
     def __parse_config(self):
         self.config = dict()
 
-        config = ConfigParser.ConfigParser()
+        config = configparser.ConfigParser()
         with open(self.project_conf) as stream:
             stream = StringIO("[root]\n" + stream.read())
             config.readfp(stream)
@@ -31,7 +26,7 @@ class CScope(object):
             self.config['project_path'] = os.path.expanduser(
                 config.get('root', 'path'))
             self.config['file_types'] = config.get('root', 'files')
-        except ConfigParser.NoOptionError as e:
+        except configparser.NoOptionError as e:
             return (
                 False,
                 "Error parsing file: '{0}': {1}".format(

@@ -89,6 +89,6 @@ name = Example
 # Where find will start searching the files.
 path = ~/Projects/cscope.nvim
 
-# file patterns to scan
+# File patterns to scan
 files = *.h,*.c,*.hh,*.cc
 ```

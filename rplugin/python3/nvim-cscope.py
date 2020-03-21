@@ -216,7 +216,8 @@ class CScope(object):
                     os.getcwd(), self.nvim.vars['cscope_config'])
             else:
                 self.nvim.command(
-                    'echo "Couldn\'t start CScope: \'cscope.py\' does not exist."')
+                    'echo "Couldn\'t start CScope: \'{0}\' does not exist."'.format(
+                        self.nvim.vars['cscope_config']))
                 return
 
         check = self.__parse_config()

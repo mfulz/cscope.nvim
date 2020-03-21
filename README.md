@@ -91,4 +91,9 @@ path = ~/Projects/cscope.nvim
 
 # File patterns to scan
 files = *.h,*.c,*.hh,*.cc
+
+# External libraries for find to search extra files (optional)
+libs =
+    ~/.tools/external-sdk
+    /usr/local/libraries/usb
 ```

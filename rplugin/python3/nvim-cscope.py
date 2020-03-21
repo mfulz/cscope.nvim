@@ -26,6 +26,10 @@ class CScope(object):
             self.config['project_path'] = os.path.expanduser(
                 config.get('root', 'path'))
             self.config['file_types'] = config.get('root', 'files').split(',')
+            self.config['project_libs'] = [
+                os.path.expanduser(l)
+                for l in config.get('root', 'libs', fallback='').split('\n')
+                if l != '' ]
         except configparser.NoOptionError as e:
             return (
                 False,
@@ -60,6 +64,8 @@ class CScope(object):
         self.cmd_cscope_files = None
         if self.cscope_ready:
             cmd = ['find']
+            for lib_path in self.config['project_libs']:
+                cmd.append(lib_path)
             first = True
             for file_type in self.config['file_types']:
                 if first:

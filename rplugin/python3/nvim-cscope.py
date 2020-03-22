@@ -2,13 +2,8 @@ import neovim
 import os
 import sys
 import subprocess
-if sys.version_info > (3, 0):
-    import configparser
-    ConfigParser = configparser
-    from io import StringIO
-else:
-    import ConfigParser
-    from StringIO import StringIO
+import configparser
+from io import StringIO
 
 
 @neovim.plugin
@@ -21,7 +16,7 @@ class CScope(object):
     def __parse_config(self):
         self.config = dict()
 
-        config = ConfigParser.ConfigParser()
+        config = configparser.ConfigParser()
         with open(self.project_conf) as stream:
             stream = StringIO("[root]\n" + stream.read())
             config.readfp(stream)
@@ -30,8 +25,12 @@ class CScope(object):
             self.config['project_name'] = config.get('root', 'name')
             self.config['project_path'] = os.path.expanduser(
                 config.get('root', 'path'))
-            self.config['file_types'] = config.get('root', 'files')
-        except ConfigParser.NoOptionError as e:
+            self.config['file_types'] = config.get('root', 'files').split(',')
+            self.config['project_libs'] = [
+                os.path.expanduser(l)
+                for l in config.get('root', 'libs', fallback='').split('\n')
+                if l != '' ]
+        except configparser.NoOptionError as e:
             return (
                 False,
                 "Error parsing file: '{0}': {1}".format(
@@ -65,8 +64,10 @@ class CScope(object):
         self.cmd_cscope_files = None
         if self.cscope_ready:
             cmd = ['find']
+            for lib_path in self.config['project_libs']:
+                cmd.append(lib_path)
             first = True
-            for file_type in self.config['file_types'].split(','):
+            for file_type in self.config['file_types']:
                 if first:
                     cmd.append(self.config['project_path'])
                     first = False
@@ -221,7 +222,8 @@ class CScope(object):
                     os.getcwd(), self.nvim.vars['cscope_config'])
             else:
                 self.nvim.command(
-                    'echo "Couldn\'t start CScope: \'cscope.py\' does not exist."')
+                    'echo "Couldn\'t start CScope: \'{0}\' does not exist."'.format(
+                        self.nvim.vars['cscope_config']))
                 return
 
         check = self.__parse_config()
